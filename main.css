@@ -6,6 +6,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 3em;
+    box-shadow: -1px 15px 33px 4px rgb(0 0 0 / 15%);
+    border-radius: 6px;
 }
 
 .card {
@@ -57,6 +61,12 @@
     height: 644px;
     position: absolute;
     max-height: 512px;
+    margin-left: 48px;
+}
+
+#signup-form{
+    border-radius: 6px 6px 0 0;
+    padding: 1.5em 2.4em 0.7em;
 }
 
 #button-wrapper {
@@ -64,16 +74,22 @@
     display: flex;
 }
 
-#previous {
+.previous {
     border-radius: 0 0 0 6px;
+    width: 50%;
+    border: none;
+    text-transform: uppercase;
+    background-color: #154619;
+    padding: 1em 1.5em;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .next {
     border-radius: 0 0 6px 0; 
 }
 
-/* Text CSS */
-
+/* Text */
 h1 {
     font-size: 1.6em;
     font-weight: 500;
@@ -81,4 +97,36 @@ h1 {
     margin: 0;
     padding: 0 1em;
     color: black;
+}
+
+/* Input boxes and radio buttons */
+input[type="text"] {
+    line-height: 1.5;
+    padding: 0.5em 1em;
+    border: 1px solid;
+    display: block;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* Circles for steps */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+.finished {
+    background-color: #154619;
+}
+
+.active {
+    background-color: #438d42;
 }

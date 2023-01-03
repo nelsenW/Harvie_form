@@ -5,12 +5,16 @@ const handleMove = (val) => {
   const previousButton = document.querySelector("#previous");
   const nextButton = document.querySelector("#next");
   const submitButton = document.querySelector("#submit");
+  const placeholder = document.querySelector("#placeholder");
 
   num += val;
+  handleSteps(num);
   if (num === 1) {
     previousButton.style.display = "none";
+    placeholder.style.display = "block";
   } else {
     previousButton.style.display = "block";
+    placeholder.style.display = "none";
   }
 
   if (num === 6) {
@@ -29,6 +33,20 @@ const handleMove = (val) => {
     }
   });
 };
+
+const handleSteps = (num) => {
+    const steps = document.querySelectorAll(".step");
+    steps.forEach((step, i) => {
+        if(i === num - 1){
+            step.classList.add("active")
+        } else if(i > num - 1){
+            step.classList.remove("active")
+            step.classList.remove("finished")      
+        } else{
+            step.classList.replace("active", "finished")
+        }
+    })
+}
 
 const handleZipCode = (e) => {
   const zipcode = document.getElementById("zipcode");
