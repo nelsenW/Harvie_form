@@ -8,11 +8,26 @@
     text-align: center;
 }
 
+.card {
+    display: none;
+}
+
+.visible{
+    display: block;
+}
+
 #main-content button{
     width: 50%;
     border: none;
     text-transform: uppercase;
     background-color: #154619;
+    padding: 1em 1.5em;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#main-content button:hover{
+    background-color: #438d42;
 }
 
 @media screen and (min-width: 769px) and (max-width: 1200px) {
@@ -21,7 +36,7 @@
     }
 }
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 600px) {
     #content-wrapper {
         display: block;
         left: 0px;
@@ -30,7 +45,8 @@
         width: 320px;
         height: 687px;
         position: absolute;
-    }`
+    }
+}
 
 #content-wrapper{
     display: block;
@@ -40,4 +56,17 @@
     width: 936px;
     height: 644px;
     position: absolute;
+}
+
+#button-wrapper {
+    width: 100%;
+    display: flex;
+}
+
+#previous {
+    border-radius: 0 0 0 6px;
+}
+
+#next {
+    border-radius: 0 0 6px 0; 
 }
