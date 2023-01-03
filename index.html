@@ -11,9 +11,9 @@
   <body>
     <div id="content-wrapper">
       <div id="main-content">
-        <form>
+        <form id="signup-form">
 
-          <div class="card" id="1">
+          <div class="card visible" id="1">
             <h1>
               Enter your zipcode to see if we deliver to your neighborhood!*
             </h1>
@@ -65,8 +65,9 @@
 
         </form>
         <div id="button-wrapper">
-          <button id="previous" onclick="handleMove(-1)">Previous</button>
-          <button id="next" onclick="handleMove(1)">Next</button>
+          <button id="previous" onclick="handleMove(-1)" style="display: none;">Previous</button>
+          <button id="next" class="next" onclick="handleMove(1)">Next</button>
+          <button id="submit" class="next" onclick="handleSubmit()" type="submit" form="signup-form" style="display: none">Submit</button>
         </div>
       </div>
     </div>
