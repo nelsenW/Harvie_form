@@ -1,6 +1,12 @@
 let num = 1;
 let validZipcode = false;
 
+window.addEventListener("DOMContentLoaded", () => {
+  new URL(window.location.href).searchParams.forEach((x, y) => {
+    document.getElementById(y + "-input").value = x;
+  });
+});
+
 // Prevents submission of form on pressing of enter key unless on final step.
 // Allows for moving of form on other steps
 document.addEventListener("keydown", (e) => {
@@ -21,31 +27,37 @@ const handleMove = (val) => {
   const submitButton = document.querySelector("#submit");
   const placeholder = document.querySelector("#placeholder");
 
-  num += val;
-  handleSteps(num);
-  if (num === 1) {
-    previousButton.style.display = "none";
-    placeholder.style.display = "block";
+  if (num === 1 && handleErrors("zipcode") && val === 1) {
+    return;
+  } else if (num === 3 && handleErrors("email") && val === 1) {
+    return;
   } else {
-    previousButton.style.display = "block";
-    placeholder.style.display = "none";
-  }
+    num += val;
+    handleSteps(num);
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      card.classList.remove("visible");
+      if (num === +card.id) {
+        card.classList.add("visible");
+      }
+    });
 
-  if (num === 6 || (!validZipcode && num === 3)) {
-    nextButton.style.display = "none";
-    submitButton.style.display = "block";
-  } else {
-    submitButton.style.display = "none";
-    nextButton.style.display = "block";
-  }
-
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) => {
-    card.classList.remove("visible");
-    if (num === +card.id) {
-      card.classList.add("visible");
+    if (num === 1) {
+      previousButton.style.display = "none";
+      placeholder.style.display = "block";
+    } else {
+      previousButton.style.display = "block";
+      placeholder.style.display = "none";
     }
-  });
+
+    if (num === 6 || (!validZipcode && num === 3)) {
+      nextButton.style.display = "none";
+      submitButton.style.display = "block";
+    } else {
+      submitButton.style.display = "none";
+      nextButton.style.display = "block";
+    }
+  }
 };
 
 // Increments step bubbles at the bottom.
@@ -189,7 +201,7 @@ const handleZipCode = (e) => {
   if (day) {
     zipcode.textContent = `We deliver to your neighborhood every ${day}`;
     firstDelivery.textContent = handleDelivery(day);
-    firstDelivery.style.display = "block"
+    firstDelivery.style.display = "block";
     validZipcode = true;
     steps.forEach((step, i) => {
       if (i >= 3) {
@@ -197,10 +209,10 @@ const handleZipCode = (e) => {
       }
     });
   } else {
-    validZipcode = false
+    validZipcode = false;
     email.textContent = `Add your email and we'll let you know if we expand to your area!*`;
     zipcode.textContent = "We do not deliver to your area currently!";
-    firstDelivery.style.display = "none"
+    firstDelivery.style.display = "none";
     steps.forEach((step, i) => {
       if (i >= 3) {
         step.style.display = "none";
@@ -237,13 +249,57 @@ const handleDelivery = (deliveryDay) => {
 
   // Add a week if their are less than 18 hours before the delivery date.
   if ((resultDate - currentDate) / (1000 * 60 * 60) < 18) {
-      resultDate.setDate(resultDate.getDate() + 7);
+    resultDate.setDate(resultDate.getDate() + 7);
   }
 
   return `Your first delivery date will be ${resultDate.toDateString()}`;
 };
 
+// Prevents moving forward on page without proper formatting of inputs
+const handleErrors = (type) => {
+  switch (type) {
+    case "zipcode":
+      const zipcodeInput = document.getElementById("zipcode-input");
+      const zipcodeError = document.getElementById("zipcode-error");
+      if (
+        +zipcodeInput.value >= 99999 ||
+        +zipcodeInput.value <= 10000 ||
+        !zipcodeInput
+      ) {
+        zipcodeInput.style.border = "2px solid red";
+        zipcodeError.style.display = "block";
+        return true;
+      } else {
+        zipcodeInput.style.border = "1px solid black";
+        zipcodeError.style.display = "none";
+      }
+      break;
+    case "email":
+      const emailInput = document.getElementById("email-input");
+      const emailError = document.getElementById("email-error");
+      if (
+        !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInput.value)
+      ) {
+        emailInput.style.border = "2px solid red";
+        emailError.style.display = "block";
+        return true;
+      } else {
+        emailInput.style.border = "1px solid black";
+        emailError.style.display = "none";
+      }
+      break;
+  }
+  return false;
+};
+
 const handleSubmit = (e) => {
   e.preventDefault();
-
+  let params = new URL(window.location.href).searchParams;
+  let paramArr = [];
+  Object.entries(params).forEach((param) => {
+    paramArr.push(`${param[0]}=${param[1]}`);
+  });
+  window.location.href = `https://www.eatharvie.com/selectplan/?${paramArr.join(
+    "&"
+  )}`;
 };

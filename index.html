@@ -22,19 +22,28 @@
             <h1>
               Enter your zipcode to see if we deliver to your neighborhood!*
             </h1>
-            <h6>5 digit zipcode</h6>
-            <input type="text" onchange="handleZipCode(this.value)" />
+            <h6 id="zipcode-error" class="error">
+              Please input a 5 digit zipcode
+            </h6>
+            <input
+              type="text"
+              onchange="handleZipCode(this.value)"
+              id="zipcode-input"
+            />
           </div>
 
           <div class="card" id="2">
             <h2 id="first-delivery"></h2>
-            <h1 id="zipcode">We do not deliver to your area currently!</h1>
+            <h6 id="zipcode">We do not deliver to your area currently!</h6>
             <h6>We deliver once a week to help reduce our carbon footprint!</h6>
           </div>
 
           <div class="card" id="3">
             <h1 id="email">Add your email to get started*</h1>
-            <input type="email" placeholder="example@example.com" />
+            <h6 id="email-error" class="error">
+              Please input a valid email address
+            </h6>
+            <input id="email-input" type="email" value="" />
           </div>
 
           <div class="card" id="4">
