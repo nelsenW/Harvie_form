@@ -1,6 +1,20 @@
 let num = 1;
-document.addEventListener("DOMContentLoaded", () => {});
+let validZipcode = false;
 
+// Prevents submission of form on pressing of enter key unless on final step.
+// Allows for moving of form on other steps
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Enter") {
+    e.preventDefault();
+    if (num === 6 || (!validZipcode && num === 3)) {
+      handleSubmit();
+    } else {
+      handleMove(1);
+    }
+  }
+});
+
+// Moves between different tabs of the form.
 const handleMove = (val) => {
   const previousButton = document.querySelector("#previous");
   const nextButton = document.querySelector("#next");
@@ -17,12 +31,12 @@ const handleMove = (val) => {
     placeholder.style.display = "none";
   }
 
-  if (num === 6) {
+  if (num === 6 || (!validZipcode && num === 3)) {
     nextButton.style.display = "none";
     submitButton.style.display = "block";
   } else {
     submitButton.style.display = "none";
-    nextButton.style.display = "block"
+    nextButton.style.display = "block";
   }
 
   const cards = document.querySelectorAll(".card");
@@ -34,22 +48,27 @@ const handleMove = (val) => {
   });
 };
 
+// Increments step bubbles at the bottom.
 const handleSteps = (num) => {
-    const steps = document.querySelectorAll(".step");
-    steps.forEach((step, i) => {
-        if(i === num - 1){
-            step.classList.add("active")
-        } else if(i > num - 1){
-            step.classList.remove("active")
-            step.classList.remove("finished")      
-        } else{
-            step.classList.replace("active", "finished")
-        }
-    })
-}
+  const steps = document.querySelectorAll(".step");
+  steps.forEach((step, i) => {
+    if (i === num - 1) {
+      step.classList.add("active");
+    } else if (i > num - 1) {
+      step.classList.remove("active");
+      step.classList.remove("finished");
+    } else {
+      step.classList.replace("active", "finished");
+    }
+  });
+};
 
+// Formats zipcode text and switches form if invalid zipcode.
 const handleZipCode = (e) => {
   const zipcode = document.getElementById("zipcode");
+  const email = document.getElementById("email");
+  const steps = document.querySelectorAll(".step");
+  const firstDelivery = document.querySelector("#first-delivery");
   let day;
   switch (+e) {
     case 15133:
@@ -167,9 +186,63 @@ const handleZipCode = (e) => {
     default:
       break;
   }
-  zipcode.textContent = day
-    ? `We deliver to your neighborhood on ${day}`
-    : "We do not deliver to your area currently!";
+  if (day) {
+    zipcode.textContent = `We deliver to your neighborhood every ${day}`;
+    firstDelivery.textContent = handleDelivery(day);
+    validZipcode = true;
+    steps.forEach((step, i) => {
+      if (i >= 3) {
+        step.style.display = "inline-block";
+      }
+    });
+  } else {
+    email.textContent = `Add your email and we'll let you know if we expand to your area!*`;
+    zipcode.textContent = "We do not deliver to your area currently!";
+    steps.forEach((step, i) => {
+      if (i >= 3) {
+        step.style.display = "none";
+      }
+    });
+  }
 };
 
-const handleSubmit = () => {};
+// Formats delivery date text based on what zipcode is selected.
+const handleDelivery = (deliveryDay) => {
+  let currentDate = new Date();
+  let resultDate = new Date();
+  let dayOfWeek;
+
+  switch (deliveryDay) {
+    case "Tuesday":
+      dayOfWeek = 2;
+      break;
+    case "Wednesday":
+      dayOfWeek = 3;
+      break;
+    case "Thursday":
+      dayOfWeek = 4;
+      break;
+    case "Friday":
+      dayOfWeek = 5;
+      break;
+  }
+
+  resultDate.setDate(
+    resultDate.getDate() + ((7 + dayOfWeek - resultDate.getDay()) % 7)
+  );
+  resultDate.setHours(0, 0, 0, 0);
+
+  // Add a week if their are less than 18 hours before the delivery date.
+  console.log(resultDate)
+  if ((resultDate - currentDate) / (1000 * 60 * 60) < 18) {
+      resultDate.setDate(resultDate.getDate() + 7);
+  }
+  console.log(resultDate.getDay())
+
+  return `Your first delivery date will be ${deliveryDay}, ${resultDate.getMonth() + 1}/${resultDate.getDay() + 1}`;
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+};
