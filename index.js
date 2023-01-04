@@ -189,6 +189,7 @@ const handleZipCode = (e) => {
   if (day) {
     zipcode.textContent = `We deliver to your neighborhood every ${day}`;
     firstDelivery.textContent = handleDelivery(day);
+    firstDelivery.style.display = "block"
     validZipcode = true;
     steps.forEach((step, i) => {
       if (i >= 3) {
@@ -196,8 +197,10 @@ const handleZipCode = (e) => {
       }
     });
   } else {
+    validZipcode = false
     email.textContent = `Add your email and we'll let you know if we expand to your area!*`;
     zipcode.textContent = "We do not deliver to your area currently!";
+    firstDelivery.style.display = "none"
     steps.forEach((step, i) => {
       if (i >= 3) {
         step.style.display = "none";
@@ -233,13 +236,11 @@ const handleDelivery = (deliveryDay) => {
   resultDate.setHours(0, 0, 0, 0);
 
   // Add a week if their are less than 18 hours before the delivery date.
-  console.log(resultDate)
   if ((resultDate - currentDate) / (1000 * 60 * 60) < 18) {
       resultDate.setDate(resultDate.getDate() + 7);
   }
-  console.log(resultDate.getDay())
 
-  return `Your first delivery date will be ${deliveryDay}, ${resultDate.getMonth() + 1}/${resultDate.getDay() + 1}`;
+  return `Your first delivery date will be ${resultDate.toDateString()}`;
 };
 
 const handleSubmit = (e) => {
