@@ -48,20 +48,22 @@
 
           <div class="card" id="4">
             <h1>Who are you regularaly feeding?</h1>
-            <label><input type="radio" name="" id="" />Just Me</label>
-            <label><input type="radio" name="" id="" />Me + 1</label>
-            <label><input type="radio" name="" id="" />3-4</label>
-            <label><input type="radio" name="" id="" />5+</label>
+            <label><input type="radio" name="feeding" id="" />Just Me</label>
+            <label><input type="radio" name="feeding" id="" />Me + 1</label>
+            <label><input type="radio" name="feeding" id="" />3-4</label>
+            <label><input type="radio" name="feeding" id="" />5+</label>
           </div>
 
           <div class="card" id="5">
             <h1>What are your Dietary Preferences?</h1>
-            <label><input type="checkbox" name="" id="" />Vegan</label>
-            <label><input type="checkbox" name="" id="" />Vegetarian</label>
-            <label><input type="checkbox" name="" id="" />Gluten Free</label>
-            <label><input type="checkbox" name="" id="" />Dairy Free</label>
-            <label><input type="checkbox" name="" id="" />Halal</label>
-            <label><input type="checkbox" name="" id="" />I eat it all!</label>
+            <div class="checkbox-wrapper">
+              <label><input type="checkbox" name="" id="" />Vegan</label>
+              <label><input type="checkbox" name="" id="" />Vegetarian</label>
+              <label><input type="checkbox" name="" id="" />Gluten Free</label>
+              <label><input type="checkbox" name="" id="" />Dairy Free</label>
+              <label><input type="checkbox" name="" id="" />Halal</label>
+              <label><input type="checkbox" name="" id="" />I eat it all!</label>
+            </div>
           </div>
 
           <div class="card" id="6">
@@ -102,7 +104,7 @@
             id="submit"
             class="next"
             onclick="handleSubmit()"
-            type="submit"
+            type="reset"
             form="signup-form"
             style="display: none"
           >

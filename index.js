@@ -262,15 +262,15 @@ const handleErrors = (type) => {
       const zipcodeInput = document.getElementById("zipcode-input");
       const zipcodeError = document.getElementById("zipcode-error");
       if (
-        +zipcodeInput.value >= 99999 ||
-        +zipcodeInput.value <= 10000 ||
-        !zipcodeInput
+        !/[0-9]{5,5}/.test(zipcodeInput.value)
       ) {
         zipcodeInput.style.border = "2px solid red";
+        zipcodeInput.style.color = "red" 
         zipcodeError.style.display = "block";
         return true;
       } else {
         zipcodeInput.style.border = "1px solid black";
+        zipcodeInput.style.color = "black" 
         zipcodeError.style.display = "none";
       }
       break;
@@ -282,10 +282,12 @@ const handleErrors = (type) => {
       ) {
         emailInput.style.border = "2px solid red";
         emailError.style.display = "block";
+        emailInput.style.color = "red"
         return true;
       } else {
         emailInput.style.border = "1px solid black";
         emailError.style.display = "none";
+        emailInput.style.color = "black"
       }
       break;
   }
@@ -293,12 +295,16 @@ const handleErrors = (type) => {
 };
 
 const handleSubmit = (e) => {
-  e.preventDefault();
   let params = new URL(window.location.href).searchParams;
+  const emailInput = document.getElementById("email-input");
+  
+  params["email"] = emailInput.value
+  console.log(params)
   let paramArr = [];
   Object.entries(params).forEach((param) => {
     paramArr.push(`${param[0]}=${param[1]}`);
   });
+  
   window.location.href = `https://www.eatharvie.com/selectplan/?${paramArr.join(
     "&"
   )}`;

@@ -119,6 +119,79 @@ input[type="email"] {
   border-radius: 4px;
 }
 
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible {
+    border: rgb(67, 141, 66, 0.5) 2px solid;
+    outline: none;
+    color: rgb(67, 141, 66, 0.5) ;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #CCAB04;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+.checkbox-wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+}
+
+
+input[type='checkbox']{
+    margin: 10px;
+}
+
+input[type='checkbox']:after {
+    width: 18px;
+    height: 18px;
+    top: -5px;
+    left: -5px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='checkbox']:checked:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 25%;
+    top: -5px;
+    left: -5px;
+    position: relative;
+    background-color: #CCAB04;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
 /* Circles for steps */
 .step {
   height: 15px;
