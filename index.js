@@ -252,7 +252,8 @@ const handleDelivery = (deliveryDay) => {
     resultDate.setDate(resultDate.getDate() + 7);
   }
 
-  return `Your first delivery date will be ${resultDate.toDateString()}`;
+  let dateString = resultDate.toDateString()
+  return `Your first delivery date will be ${dateString.substring(0, dateString.length - 4)}`;
 };
 
 // Prevents moving forward on page without proper formatting of inputs
@@ -297,9 +298,11 @@ const handleErrors = (type) => {
 const handleSubmit = (e) => {
   let params = new URL(window.location.href).searchParams;
   const emailInput = document.getElementById("email-input");
+  const zipcodeInput = document.getElementById("zipcode-input")
   
   params["email"] = emailInput.value
-  console.log(params)
+  params["zipcode"] = zipcodeInput.value
+
   let paramArr = [];
   Object.entries(params).forEach((param) => {
     paramArr.push(`${param[0]}=${param[1]}`);
