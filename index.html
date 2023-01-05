@@ -17,7 +17,7 @@
   <body>
     <div id="content-wrapper">
       <div id="main-content">
-        <form id="signup-form">
+        <form id="signup-form" onsubmit="handleSubmit()">
           <div class="card visible" id="1">
             <h1>
               Enter your zipcode to see if we deliver to your neighborhood!*
@@ -47,21 +47,21 @@
 
           <div class="card" id="4">
             <h1>Who are you regularly feeding?</h1>
-            <label><input type="radio" name="feeding" id="" />Just Me</label>
-            <label><input type="radio" name="feeding" id="" />Me + 1</label>
-            <label><input type="radio" name="feeding" id="" />3-4</label>
-            <label><input type="radio" name="feeding" id="" />5+</label>
+            <label><input type="radio" name="feeding" id="" value="1"/>Just Me</label>
+            <label><input type="radio" name="feeding" id="" value="2"/>Me + 1</label>
+            <label><input type="radio" name="feeding" id="" value="3-4"/>3-4</label>
+            <label><input type="radio" name="feeding" id="" value="5+"/>5+</label>
           </div>
 
           <div class="card" id="5">
             <h1>What are your Dietary Preferences?</h1>
             <div class="checkbox-wrapper">
-              <label><input type="checkbox" name="" id="" />Vegan</label>
-              <label><input type="checkbox" name="" id="" />Vegetarian</label>
-              <label><input type="checkbox" name="" id="" />Gluten Free</label>
-              <label><input type="checkbox" name="" id="" />Dairy Free</label>
-              <label><input type="checkbox" name="" id="" />Halal</label>
-              <label><input type="checkbox" name="" id="" />I eat it all!</label>
+              <label><input type="checkbox" name="" id="" value="Vegan"/>Vegan</label>
+              <label><input type="checkbox" name="" id="" value="Vegetarian"/>Vegetarian</label>
+              <label><input type="checkbox" name="" id="" value="Gluten Free"/>Gluten Free</label>
+              <label><input type="checkbox" name="" id="" value="Diary Free"/>Dairy Free</label>
+              <label><input type="checkbox" name="" id="" value="Halal"/>Halal</label>
+              <label><input type="checkbox" name="" id="" value="I eat ot all!"/>I eat it all!</label>
             </div>
           </div>
 
@@ -70,13 +70,15 @@
             <h6>
               We'll use this to help provide suggestions while you're shopping!
             </h6>
-            <label><input type="checkbox" name="" id="" />Local</label>
-            <label><input type="checkbox" name="" id="" />Organic</label>
-            <label><input type="checkbox" name="" id="" />Regenerative</label>
-            <label><input type="checkbox" name="" id="" />Free - Range</label>
-            <label><input type="checkbox" name="" id="" />Fair Trade</label>
-            <label><input type="checkbox" name="" id="" />Grass-Fed</label>
-            <label><input type="checkbox" name="" id="" />Pasture-Raised</label>
+            <div class="checkbox-wrapper">
+              <label><input type="checkbox" name="" id="" value="Local"/>Local</label>
+              <label><input type="checkbox" name="" id="" value="Organic"/>Organic</label>
+              <label><input type="checkbox" name="" id="" value="Regenerative"/>Regenerative</label>
+              <label><input type="checkbox" name="" id="" value="Free - Range"/>Free - Range</label>
+              <label><input type="checkbox" name="" id="" value="Fair Trade"/>Fair Trade</label>
+              <label><input type="checkbox" name="" id="" value="Grass-Fed"/>Grass-Fed</label>
+              <label><input type="checkbox" name="" id="" value="Pasture-Raised"/>Pasture-Raised</label>
+            </div>
           </div>
 
           <div style="text-align: center; margin-top: 20px">
@@ -87,6 +89,8 @@
             <span class="step"></span>
             <span class="step"></span>
           </div>
+
+          <input id="destination" type="hidden" name="_next" value="//path/thanks.html" />
         </form>
         <div id="button-wrapper">
           <div class="previous" id="placeholder"></div>
@@ -102,8 +106,7 @@
           <button
             id="submit"
             class="next"
-            onclick="handleSubmit()"
-            type="reset"
+            type="submit"
             form="signup-form"
             style="display: none"
           >

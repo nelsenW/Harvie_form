@@ -279,7 +279,7 @@ const handleErrors = (type) => {
       const emailInput = document.getElementById("email-input");
       const emailError = document.getElementById("email-error");
       if (
-        !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailInput.value)
+        !(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*(\+[a-z0-9-]+)?@[a-z0-9-]+(\.[a-z0-9-]+)*$/i).test(emailInput.value)
       ) {
         emailInput.style.border = "2px solid red";
         emailError.style.display = "block";
@@ -296,7 +296,10 @@ const handleErrors = (type) => {
 };
 
 const handleSubmit = (e) => {
-  let params = new URL(window.location.href).searchParams;
+
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+
   const emailInput = document.getElementById("email-input");
   const zipcodeInput = document.getElementById("zipcode-input")
   
@@ -306,9 +309,9 @@ const handleSubmit = (e) => {
   let paramArr = [];
   Object.entries(params).forEach((param) => {
     paramArr.push(`${param[0]}=${param[1]}`);
-  });
+  })
   
-  window.location.href = `https://www.eatharvie.com/selectplan/?${paramArr.join(
+  document.getElementById("destination").value = `https://www.eatharvie.com/selectplan/?${paramArr.join(
     "&"
   )}`;
 };
